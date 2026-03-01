@@ -1,9 +1,9 @@
 <?php
 // ==================== CONFIGURAÇÃO BANCO DE DADOS QRCODES ====================
 $host = "127.0.0.1";
-$username = "u617342185_qrcode";
+$username = "qrapipainel";
 $password = "Acerola@2026";
-$database = "u617342185_qrcode";
+$database = "qrapipainel";
 
 // Criar conexão
 $conn = new mysqli($host, $username, $password, $database);
