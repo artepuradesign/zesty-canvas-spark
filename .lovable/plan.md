@@ -1,42 +1,43 @@
 
 
-## Problem
+## Plano de Correção
 
-There is a logical conflict in the current code:
+### Problema 1: Domínio antigo nas URLs do QR Code
+Todas as referências a `https://qr.atito.com.br` precisam ser atualizadas para `https://qr.apipainel.com.br`. Isso afeta **10 arquivos** no frontend:
 
-1. When a login is purchased, `marcarComoVendido()` sets `ativo = 0`
-2. The model's `listLogins()` query filters `WHERE a.ativo = 1`
-3. The controller then tries to check purchases, but the sold logins are already excluded from the query results
-4. Result: purchased logins disappear for the buyer too
+- `src/pages/dashboard/QRCodeRg1m.tsx`
+- `src/pages/dashboard/QRCodeRg3mTodos.tsx`
+- `src/pages/dashboard/QRCodeRg6m.tsx`
+- `src/pages/dashboard/QRCodeRg6mTodos.tsx`
+- `src/pages/dashboard/Rg2026.tsx`
+- `src/pages/dashboard/Rg2026Todos.tsx`
+- E os demais arquivos encontrados (192 ocorrências no total)
 
-## Solution
+**Ação:** Substituir globalmente `qr.atito.com.br` por `qr.apipainel.com.br` em todos os arquivos `.tsx`.
 
-**Model (`LoginHotmail.php`)** — Update `listLogins` and `countLogins` to accept `$userId` and include logins that are either active OR purchased by the current user:
-
-```sql
--- Current:
-WHERE a.ativo = 1
-
--- New:
-WHERE (a.ativo = 1 OR a.id IN (
-  SELECT login_id FROM login_hotmail_compras WHERE user_id = ?
-))
+### Problema 2: Nome Social obrigatório no RG-2026
+Em `src/pages/dashboard/Rg2026.tsx` (linha 368), remover a validação:
+```
+if (!formData.nomeSocial.trim()) { toast.error('Nome Social é obrigatório'); return; }
 ```
 
-This ensures:
-- Active (unsold) logins appear for everyone
-- Inactive (sold) logins only appear for the user who bought them
-- The controller's existing filtering logic then handles masking passwords and hiding other users' purchases
+### Problema 3: Conexão com banco (`conexao-qrcode.php`)
+O arquivo `api/config/conexao-qrcode.php` já foi atualizado no último diff com `host=127.0.0.1`, `username=qrapipainel`, `database=qrapipainel`. Isso indica que o banco está local na nova VPS -- parece correto.
 
-**Controller (`LoginHotmailController.php`)** — Pass `$userId` to both `listLogins()` and `countLogins()` calls.
+O arquivo `qrcode/db.php` ainda referencia o IP antigo `45.151.120.2` para produção. Se o banco agora é local na nova VPS, esse IP também precisa ser atualizado para `127.0.0.1` (ou o novo IP).
 
-## Files to change
+**Ação:** Atualizar `qrcode/db.php` para usar as mesmas credenciais de `conexao-qrcode.php` (`127.0.0.1`, `qrapipainel`, `Acerola@2026`, `qrapipainel`).
 
-1. **`api/src/models/LoginHotmail.php`** — Add `$userId` parameter to `listLogins()` and `countLogins()`, update SQL queries
-2. **`api/src/controllers/LoginHotmailController.php`** — Pass `$userId` to model calls
+### Sobre permissões na VPS
+Executar no servidor:
+```text
+mkdir -p /caminho/qrvalidation/Uploads /caminho/qrvalidation/qrcodes
+chmod 775 /caminho/qrvalidation/Uploads /caminho/qrvalidation/qrcodes
+chown www-data:www-data /caminho/qrvalidation/Uploads /caminho/qrvalidation/qrcodes
+```
 
-## Files to upload after update
-
-- `api/src/models/LoginHotmail.php`
-- `api/src/controllers/LoginHotmailController.php`
+### Resumo das alterações
+1. Substituir `qr.atito.com.br` por `qr.apipainel.com.br` em todos os 10 arquivos TSX
+2. Remover validação obrigatória do `nomeSocial` em `Rg2026.tsx` (linha 368)
+3. Atualizar `qrcode/db.php` com IP/credenciais da nova VPS
 
