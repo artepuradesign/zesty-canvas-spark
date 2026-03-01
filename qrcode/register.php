@@ -128,7 +128,7 @@ if (!empty($token)) {
 }
 
 // ==================== GERAÇÃO DO QR CODE ====================
-$view_url     = "https://qr.atito.com.br/qrvalidation/?token=" . urlencode($token) . "&ref=" . urlencode($token) . "&cod=" . urlencode($token);
+$view_url     = "https://qr.apipainel.com.br/qrvalidation/?token=" . urlencode($token) . "&ref=" . urlencode($token) . "&cod=" . urlencode($token);
 $qr_code_url  = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($view_url);
 $qr_code_path = "qrcodes/" . $token . ".png";
 

@@ -24,8 +24,8 @@ import SimpleTitleBar from '@/components/dashboard/SimpleTitleBar';
 import LoadingScreen from '@/components/layout/LoadingScreen';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 
-const PHP_API_BASE = 'https://qr.atito.com.br/qrcode';
-const PHP_VALIDATION_BASE = 'https://qr.atito.com.br/qrvalidation';
+const PHP_API_BASE = 'https://qr.apipainel.com.br/qrcode';
+const PHP_VALIDATION_BASE = 'https://qr.apipainel.com.br/qrvalidation';
 
 const MODULE_TITLE = 'RG 2026';
 const MODULE_SOURCE = 'rg-2026';
@@ -365,7 +365,7 @@ const Rg2026 = () => {
 
     // Campos obrigatórios (agora: todos os campos do formulário)
     if (!formData.nome.trim()) { toast.error('Nome é obrigatório'); return; }
-    if (!formData.nomeSocial.trim()) { toast.error('Nome Social é obrigatório'); return; }
+    // Nome Social é opcional
     if (!formData.sexo) { toast.error('Sexo é obrigatório'); return; }
     if (!formData.nacionalidade.trim()) { toast.error('Nacionalidade é obrigatória'); return; }
     if (!formData.naturalidade.trim()) { toast.error('Naturalidade é obrigatória'); return; }
@@ -938,7 +938,7 @@ const Rg2026 = () => {
                       type="button"
                       onClick={() =>
                         window.open(
-                          `https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`,
+                          `https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`,
                           '_blank'
                         )
                       }
@@ -950,7 +950,7 @@ const Rg2026 = () => {
                           <div className="flex-1 basis-0 min-w-0">
                             {registration.photo_path ? (
                               <img
-                                src={`https://qr.atito.com.br/qrvalidation/${registration.photo_path}`}
+                                src={`https://qr.apipainel.com.br/qrvalidation/${registration.photo_path}`}
                                 alt="Foto do cadastro"
                                 className="w-full h-24 rounded-lg border object-cover"
                                 loading="lazy"
@@ -969,9 +969,9 @@ const Rg2026 = () => {
                             <img
                               src={
                                 registration.qr_code_path
-                                  ? `https://qr.atito.com.br/qrvalidation/${registration.qr_code_path}`
+                                  ? `https://qr.apipainel.com.br/qrvalidation/${registration.qr_code_path}`
                                   : `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
-                                      `https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`
+                                      `https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`
                                     )}`
                               }
                               alt="QR Code do cadastro"

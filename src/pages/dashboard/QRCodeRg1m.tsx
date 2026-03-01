@@ -22,8 +22,8 @@ import SimpleTitleBar from '@/components/dashboard/SimpleTitleBar';
 import LoadingScreen from '@/components/layout/LoadingScreen';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 
-const PHP_API_BASE = 'https://qr.atito.com.br/qrcode';
-const PHP_VALIDATION_BASE = 'https://qr.atito.com.br/qrvalidation';
+const PHP_API_BASE = 'https://qr.apipainel.com.br/qrcode';
+const PHP_VALIDATION_BASE = 'https://qr.apipainel.com.br/qrvalidation';
 
 const MODULE_TITLE = 'QR Code RG 1M';
 const MODULE_SOURCE = 'qrcode-rg-1m';
@@ -345,8 +345,8 @@ const QRCodeRg1m = () => {
                     <div key={registration.id} className="rounded-lg border border-border bg-card p-2.5 sm:p-3">
                       <div className="flex gap-2.5">
                         <div className="flex gap-2 flex-shrink-0">
-                          {registration.photo_path ? <img src={`https://qr.atito.com.br/qrvalidation/${registration.photo_path}`} alt="Foto" className="object-cover rounded-lg border w-16 h-20 sm:w-20 sm:h-24" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} /> : <div className="w-16 h-20 sm:w-20 sm:h-24 bg-muted rounded-lg flex items-center justify-center border"><User className="h-5 w-5 text-muted-foreground" /></div>}
-                          <img src={registration.qr_code_path ? `https://qr.atito.com.br/qrvalidation/${registration.qr_code_path}` : `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`)}`} alt="QR Code" className="border w-20 h-20 sm:w-24 sm:h-24" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                          {registration.photo_path ? <img src={`https://qr.apipainel.com.br/qrvalidation/${registration.photo_path}`} alt="Foto" className="object-cover rounded-lg border w-16 h-20 sm:w-20 sm:h-24" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} /> : <div className="w-16 h-20 sm:w-20 sm:h-24 bg-muted rounded-lg flex items-center justify-center border"><User className="h-5 w-5 text-muted-foreground" /></div>}
+                          <img src={registration.qr_code_path ? `https://qr.apipainel.com.br/qrvalidation/${registration.qr_code_path}` : `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`)}`} alt="QR Code" className="border w-20 h-20 sm:w-24 sm:h-24" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-xs sm:text-sm font-semibold truncate">{registration.full_name}</p>
@@ -419,7 +419,7 @@ const QRCodeRg1m = () => {
               {isMobile ? (
                 <div className="space-y-2">
                   {recentRegistrations.slice(0, 10).map((registration) => (
-                    <button key={registration.id} type="button" onClick={() => window.open(`https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')} className="w-full text-left rounded-md border border-border bg-card px-3 py-2">
+                    <button key={registration.id} type="button" onClick={() => window.open(`https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')} className="w-full text-left rounded-md border border-border bg-card px-3 py-2">
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <div className="font-mono text-xs break-words">{registration.document_number}</div>
@@ -436,7 +436,7 @@ const QRCodeRg1m = () => {
                   <TableHeader><TableRow><TableHead className="w-40 whitespace-nowrap">Documento</TableHead><TableHead className="min-w-[180px] whitespace-nowrap">Módulo</TableHead><TableHead className="min-w-[180px] whitespace-nowrap">Data e Hora</TableHead><TableHead className="w-28 text-right whitespace-nowrap">Valor</TableHead><TableHead className="w-28 text-center whitespace-nowrap">Status</TableHead></TableRow></TableHeader>
                   <TableBody>
                     {recentRegistrations.slice(0, 10).map((registration) => (
-                      <TableRow key={registration.id} className="cursor-pointer" onClick={() => window.open(`https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')}>
+                      <TableRow key={registration.id} className="cursor-pointer" onClick={() => window.open(`https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')}>
                         <TableCell className="font-mono text-xs sm:text-sm whitespace-nowrap">{registration.document_number}</TableCell>
                         <TableCell className="text-xs sm:text-sm whitespace-nowrap">{MODULE_TITLE.toUpperCase()}</TableCell>
                         <TableCell className="text-xs sm:text-sm whitespace-nowrap">{formatFullDate(registration.created_at)}</TableCell>
