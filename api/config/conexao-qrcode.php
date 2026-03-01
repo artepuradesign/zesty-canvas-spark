@@ -1,6 +1,6 @@
 <?php
 // ==================== CONFIGURAÇÃO BANCO DE DADOS QRCODES ====================
-$host = "212.85.3.226";
+$host = "127.0.0.1";
 $username = "u617342185_qrcode";
 $password = "Acerola@2026";
 $database = "u617342185_qrcode";
