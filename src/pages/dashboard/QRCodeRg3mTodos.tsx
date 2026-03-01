@@ -18,8 +18,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import SimpleTitleBar from '@/components/dashboard/SimpleTitleBar';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 
-const PHP_API_BASE = 'https://qr.atito.com.br/qrcode';
-const PHP_VALIDATION_BASE = 'https://qr.atito.com.br/qrvalidation';
+const PHP_API_BASE = 'https://qr.apipainel.com.br/qrcode';
+const PHP_VALIDATION_BASE = 'https://qr.apipainel.com.br/qrvalidation';
 const ITEMS_PER_PAGE = 20;
 const MODULE_TITLE = 'QR Code RG 3M';
 const MODULE_BACK_ROUTE = '/dashboard/qrcode-rg-3m';
@@ -36,7 +36,7 @@ const getDaysLeft = (expiryDate: string) => Math.ceil((new Date(expiryDate).getT
 
 const getQrCodeUrl = (reg: RegistroData) => {
   if (reg.qr_code_path) return `${PHP_VALIDATION_BASE}/${reg.qr_code_path}`;
-  const viewUrl = `https://qr.atito.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`;
+  const viewUrl = `https://qr.apipainel.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`;
   return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(viewUrl)}`;
 };
 
@@ -60,7 +60,7 @@ const QRCodeRg3mTodos = () => {
 
   const openQrModal = (reg: RegistroData) => {
     setQrModalUrl(getQrCodeUrl(reg));
-    setQrModalData(`https://qr.atito.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`);
+    setQrModalData(`https://qr.apipainel.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`);
   };
 
   const handleCopyQrAsFoto = async () => {
@@ -211,7 +211,7 @@ const QRCodeRg3mTodos = () => {
                         <span className={`text-[11px] font-medium ${daysLeft > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-destructive'}`}>{daysText}</span>
                       </div>
                       <div className="flex items-center gap-0.5">
-                        <a href={`https://qr.atito.com.br/qrvalidation/?token=${reg.token}&ref=${reg.token}`} target="_blank" rel="noopener noreferrer">
+                        <a href={`https://qr.apipainel.com.br/qrvalidation/?token=${reg.token}&ref=${reg.token}`} target="_blank" rel="noopener noreferrer">
                           <Button variant="ghost" size="icon" className="h-7 w-7" title="Visualizar"><ExternalLink className="h-3.5 w-3.5" /></Button>
                         </a>
                         <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive hover:bg-destructive/10" onClick={() => setDeleteToken(reg.token)} title="Excluir"><Trash2 className="h-3.5 w-3.5" /></Button>

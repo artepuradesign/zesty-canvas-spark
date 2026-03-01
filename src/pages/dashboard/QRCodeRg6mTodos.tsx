@@ -18,8 +18,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import SimpleTitleBar from '@/components/dashboard/SimpleTitleBar';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 
-const PHP_API_BASE = 'https://qr.atito.com.br/qrcode';
-const PHP_VALIDATION_BASE = 'https://qr.atito.com.br/qrvalidation';
+const PHP_API_BASE = 'https://qr.apipainel.com.br/qrcode';
+const PHP_VALIDATION_BASE = 'https://qr.apipainel.com.br/qrvalidation';
 const ITEMS_PER_PAGE = 20;
 
 interface RegistroData {
@@ -59,7 +59,7 @@ const getQrCodeUrl = (reg: RegistroData) => {
   if (reg.qr_code_path) {
     return `${PHP_VALIDATION_BASE}/${reg.qr_code_path}`;
   }
-  const viewUrl = `https://qr.atito.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`;
+  const viewUrl = `https://qr.apipainel.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`;
   return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(viewUrl)}`;
 };
 
@@ -83,7 +83,7 @@ const QRCodeRg6mTodos = () => {
 
   const openQrModal = (reg: RegistroData) => {
     setQrModalUrl(getQrCodeUrl(reg));
-    const validationUrl = `https://qr.atito.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`;
+    const validationUrl = `https://qr.apipainel.com.br/qrvalidation/?token=${encodeURIComponent(reg.token)}&ref=${encodeURIComponent(reg.token)}&cod=${encodeURIComponent(reg.token)}`;
     setQrModalData(validationUrl);
   };
 
@@ -412,7 +412,7 @@ const QRCodeRg6mTodos = () => {
                         </div>
                         <div className="flex items-center gap-0.5">
                           <a
-                            href={`https://qr.atito.com.br/qrvalidation/?token=${reg.token}&ref=${reg.token}`}
+                            href={`https://qr.apipainel.com.br/qrvalidation/?token=${reg.token}&ref=${reg.token}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

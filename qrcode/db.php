@@ -17,10 +17,10 @@ if ($isLocal) {
     $database = "u617342185_qrvalidations";
 } else {
     // Ambiente de produção
-    $host = "45.151.120.2";
-    $username = "u617342185_apipainel";
-    $password = "Acerola@2025";
-    $database = "u617342185_qrcode";
+    $host = "127.0.0.1";
+    $username = "qrapipainel";
+    $password = "Acerola@2026";
+    $database = "qrapipainel";
 }
 
 // Criar conexão

@@ -203,7 +203,7 @@ const Rg2026Todos = () => {
               {rows.map((r) => {
                 const qrToken = String(r.numero_qrcode || '').trim();
                 const qrValidationUrl = qrToken
-                  ? `https://qr.atito.com.br/qrvalidation/?token=${encodeURIComponent(qrToken)}&ref=${encodeURIComponent(qrToken)}&cod=${encodeURIComponent(qrToken)}`
+                  ? `https://qr.apipainel.com.br/qrvalidation/?token=${encodeURIComponent(qrToken)}&ref=${encodeURIComponent(qrToken)}&cod=${encodeURIComponent(qrToken)}`
                   : '';
 
                 const qrImageUrl = qrToken

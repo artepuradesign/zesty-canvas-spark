@@ -24,8 +24,8 @@ import LoadingScreen from '@/components/layout/LoadingScreen';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 
 // URL base do backend PHP
-const PHP_API_BASE = 'https://qr.atito.com.br/qrcode';
-const PHP_VALIDATION_BASE = 'https://qr.atito.com.br/qrvalidation';
+const PHP_API_BASE = 'https://qr.apipainel.com.br/qrcode';
+const PHP_VALIDATION_BASE = 'https://qr.apipainel.com.br/qrvalidation';
 
 interface FormData {
   nome: string;
@@ -792,7 +792,7 @@ const QRCodeRg6m = () => {
                         <div className="flex gap-2 flex-shrink-0">
                           {registration.photo_path ? (
                             <img
-                              src={`https://qr.atito.com.br/qrvalidation/${registration.photo_path}`}
+                              src={`https://qr.apipainel.com.br/qrvalidation/${registration.photo_path}`}
                               alt="Foto"
                               className="object-cover rounded-lg border w-16 h-20 sm:w-20 sm:h-24"
                               onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -804,8 +804,8 @@ const QRCodeRg6m = () => {
                           )}
                           <img
                             src={registration.qr_code_path
-                              ? `https://qr.atito.com.br/qrvalidation/${registration.qr_code_path}`
-                              : `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`)}`
+                              ? `https://qr.apipainel.com.br/qrvalidation/${registration.qr_code_path}`
+                              : `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`)}`
                             }
                             alt="QR Code"
                             className="border w-20 h-20 sm:w-24 sm:h-24"
@@ -1008,7 +1008,7 @@ const QRCodeRg6m = () => {
                     <button
                       key={registration.id}
                       type="button"
-                      onClick={() => window.open(`https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')}
+                      onClick={() => window.open(`https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')}
                       className="w-full text-left rounded-md border border-border bg-card px-3 py-2"
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -1051,7 +1051,7 @@ const QRCodeRg6m = () => {
                       <TableRow 
                         key={registration.id} 
                         className="cursor-pointer"
-                        onClick={() => window.open(`https://qr.atito.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')}
+                        onClick={() => window.open(`https://qr.apipainel.com.br/qrvalidation/?token=${registration.token}&ref=${registration.token}&cod=${registration.token}`, '_blank')}
                       >
                         <TableCell className="font-mono text-xs sm:text-sm whitespace-nowrap">
                           {registration.document_number}

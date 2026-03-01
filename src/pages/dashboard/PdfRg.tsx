@@ -22,7 +22,7 @@ import SimpleTitleBar from '@/components/dashboard/SimpleTitleBar';
 import LoadingScreen from '@/components/layout/LoadingScreen';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 
-const PHP_VALIDATION_BASE = 'https://qr.atito.com.br/qrvalidation';
+const PHP_VALIDATION_BASE = 'https://qr.apipainel.com.br/qrvalidation';
 
 const MODULE_TITLE = 'PDF RG';
 const MODULE_ROUTE = '/dashboard/pdf-rg';
