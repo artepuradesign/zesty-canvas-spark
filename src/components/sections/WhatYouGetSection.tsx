@@ -10,9 +10,10 @@ const cards = [
     desc: 'Rápidas e completas',
     link: '/planos-publicos',
     gradient: 'from-violet-500 to-purple-600',
-    bgGlow: 'bg-violet-500/10',
-    iconBg: 'bg-violet-500/15',
-    borderHover: 'hover:border-violet-400/50',
+    shadowColor: 'shadow-violet-500/25',
+    iconColor: 'text-violet-500',
+    ringColor: 'ring-violet-500/30',
+    glowBg: 'bg-violet-500/20',
   },
   {
     icon: LayoutDashboard,
@@ -20,9 +21,10 @@ const cards = [
     desc: 'Administre estoque, vendas, clientes',
     link: '/planos-publicos',
     gradient: 'from-blue-500 to-cyan-500',
-    bgGlow: 'bg-blue-500/10',
-    iconBg: 'bg-blue-500/15',
-    borderHover: 'hover:border-blue-400/50',
+    shadowColor: 'shadow-blue-500/25',
+    iconColor: 'text-blue-500',
+    ringColor: 'ring-blue-500/30',
+    glowBg: 'bg-blue-500/20',
   },
   {
     icon: Code2,
@@ -30,9 +32,10 @@ const cards = [
     desc: 'Integre no seu app',
     link: '/api',
     gradient: 'from-emerald-500 to-teal-500',
-    bgGlow: 'bg-emerald-500/10',
-    iconBg: 'bg-emerald-500/15',
-    borderHover: 'hover:border-emerald-400/50',
+    shadowColor: 'shadow-emerald-500/25',
+    iconColor: 'text-emerald-500',
+    ringColor: 'ring-emerald-500/30',
+    glowBg: 'bg-emerald-500/20',
   },
   {
     icon: Car,
@@ -41,9 +44,10 @@ const cards = [
     link: null,
     badge: 'Em breve',
     gradient: 'from-amber-500 to-orange-500',
-    bgGlow: 'bg-amber-500/10',
-    iconBg: 'bg-amber-500/15',
-    borderHover: 'hover:border-amber-400/50',
+    shadowColor: 'shadow-amber-500/25',
+    iconColor: 'text-amber-500',
+    ringColor: 'ring-amber-500/30',
+    glowBg: 'bg-amber-500/20',
   },
 ];
 
@@ -79,29 +83,36 @@ const WhatYouGetSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className={`group relative bg-card border border-border/50 rounded-2xl p-6 shadow-sm hover:shadow-xl ${card.borderHover} transition-all duration-300 cursor-pointer overflow-hidden`}
+              whileHover={{ y: -8, scale: 1.03 }}
+              className={`group relative bg-card/80 backdrop-blur-sm rounded-2xl p-6 cursor-pointer overflow-hidden
+                border border-border/50 hover:border-transparent
+                shadow-sm hover:shadow-xl hover:${card.shadowColor}
+                ring-1 ring-transparent hover:${card.ringColor}
+                transition-all duration-300`}
               onClick={() => card.link && navigate(card.link)}
             >
-              {/* Background glow effect */}
-              <div className={`absolute -top-12 -right-12 w-32 h-32 ${card.bgGlow} rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              {/* Gradient border overlay on hover */}
+              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500`} />
+              
+              {/* Background glow */}
+              <div className={`absolute -top-16 -right-16 w-40 h-40 ${card.glowBg} rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500`} />
 
               {card.badge && (
-                <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-full border border-amber-500/20">
+                <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-full border border-amber-500/30">
                   {card.badge}
                 </span>
               )}
 
-              <div className={`relative h-14 w-14 rounded-2xl ${card.iconBg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`} />
-                <card.icon className={`h-7 w-7 text-foreground/80 relative z-10`} />
+              {/* Icon with gradient background */}
+              <div className={`relative h-14 w-14 rounded-2xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-5 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}>
+                <card.icon className="h-7 w-7 text-white relative z-10" />
               </div>
 
               <h3 className="font-bold text-foreground text-lg mb-1.5 relative z-10">{card.title}</h3>
               <p className="text-sm text-muted-foreground mb-4 relative z-10">{card.desc}</p>
 
               {card.link && (
-                <span className="inline-flex items-center text-xs font-semibold text-primary group-hover:gap-2 gap-1 transition-all relative z-10">
+                <span className={`inline-flex items-center text-xs font-semibold ${card.iconColor} group-hover:gap-2 gap-1 transition-all relative z-10`}>
                   Saiba mais
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </span>
