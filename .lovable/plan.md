@@ -1,43 +1,66 @@
 
 
-## Plano de Correção
+## Plano de Implementação — 4 Tarefas
 
-### Problema 1: Domínio antigo nas URLs do QR Code
-Todas as referências a `https://qr.atito.com.br` precisam ser atualizadas para `https://qr.apipainel.com.br`. Isso afeta **10 arquivos** no frontend:
+### 1. Sistema de Blog (página `/blog` e `/blog/:slug`)
 
-- `src/pages/dashboard/QRCodeRg1m.tsx`
-- `src/pages/dashboard/QRCodeRg3mTodos.tsx`
-- `src/pages/dashboard/QRCodeRg6m.tsx`
-- `src/pages/dashboard/QRCodeRg6mTodos.tsx`
-- `src/pages/dashboard/Rg2026.tsx`
-- `src/pages/dashboard/Rg2026Todos.tsx`
-- E os demais arquivos encontrados (192 ocorrências no total)
+Como o projeto não tem backend próprio (usa API PHP externa), o blog será gerenciado via **dados estáticos no código** com uma estrutura que facilite futuras migrações para um CMS ou banco de dados.
 
-**Ação:** Substituir globalmente `qr.atito.com.br` por `qr.apipainel.com.br` em todos os arquivos `.tsx`.
+**Arquivos a criar:**
+- `src/data/blogPosts.ts` — Array de posts com campos: `id`, `slug`, `title`, `excerpt`, `content` (markdown/HTML), `image` (opcional), `date`, `tags`
+- `src/pages/Blog.tsx` — Listagem de posts com cards, busca por título, filtro por tag
+- `src/pages/BlogPost.tsx` — Página individual do post com conteúdo completo e imagem opcional
 
-### Problema 2: Nome Social obrigatório no RG-2026
-Em `src/pages/dashboard/Rg2026.tsx` (linha 368), remover a validação:
-```
-if (!formData.nomeSocial.trim()) { toast.error('Nome Social é obrigatório'); return; }
-```
+**Arquivos a modificar:**
+- `src/App.tsx` — Adicionar rotas `/blog` e `/blog/:slug`
+- `src/components/MenuSuperior.tsx` — Alterar o link "Blog" (linha 155) de `/docs` para `/blog`
 
-### Problema 3: Conexão com banco (`conexao-qrcode.php`)
-O arquivo `api/config/conexao-qrcode.php` já foi atualizado no último diff com `host=127.0.0.1`, `username=qrapipainel`, `database=qrapipainel`. Isso indica que o banco está local na nova VPS -- parece correto.
+O blog terá layout com `MenuSuperior` + `NewFooter`, cards com imagem de destaque opcional, data formatada e tags coloridas.
 
-O arquivo `qrcode/db.php` ainda referencia o IP antigo `45.151.120.2` para produção. Se o banco agora é local na nova VPS, esse IP também precisa ser atualizado para `127.0.0.1` (ou o novo IP).
+---
 
-**Ação:** Atualizar `qrcode/db.php` para usar as mesmas credenciais de `conexao-qrcode.php` (`127.0.0.1`, `qrapipainel`, `Acerola@2026`, `qrapipainel`).
+### 2. Cards "O que você ganha" — Mais Coloridos e Modernos
 
-### Sobre permissões na VPS
-Executar no servidor:
-```text
-mkdir -p /caminho/qrvalidation/Uploads /caminho/qrvalidation/qrcodes
-chmod 775 /caminho/qrvalidation/Uploads /caminho/qrvalidation/qrcodes
-chown www-data:www-data /caminho/qrvalidation/Uploads /caminho/qrvalidation/qrcodes
-```
+**Arquivo:** `src/components/sections/WhatYouGetSection.tsx`
 
-### Resumo das alterações
-1. Substituir `qr.atito.com.br` por `qr.apipainel.com.br` em todos os 10 arquivos TSX
-2. Remover validação obrigatória do `nomeSocial` em `Rg2026.tsx` (linha 368)
-3. Atualizar `qrcode/db.php` com IP/credenciais da nova VPS
+Redesign dos cards com:
+- Ícones com gradiente colorido de fundo (não apenas o hover atual)
+- Bordas com gradiente visível permanente
+- Efeito de brilho/glow mais pronunciado
+- Cores vibrantes nos ícones (violeta, azul, verde, laranja) já ativas sem hover
+- Animação de hover mais expressiva com scale e shadow colorido
+
+---
+
+### 3. Páginas de Política de Privacidade e Cookies — Modernização
+
+**Arquivos:** `src/pages/PrivacyPolicy.tsx` e `src/pages/CookiePolicy.tsx`
+
+Ambas já existem e têm rotas (`/privacy`, `/cookies`). Vou modernizá-las para:
+- Usar `PageLayout` com `MenuSuperior` + `NewFooter` (consistente com o resto do site)
+- Usar variáveis de tema (`bg-background`, `text-foreground`) em vez de cores hardcoded
+- Design mais limpo com tipografia melhorada e espaçamento
+
+---
+
+### 4. Seção de Benefícios Após o Hero — Redesign Completo
+
+**Arquivo:** `src/components/sections/HomeCarouselSection.tsx` (linhas 250-274, barra de benefícios)
+
+A barra atual com "Rápido / Seguro / Completo" será substituída por uma seção mais impactante:
+- Cards com ícones grandes e coloridos, cada um com cor distinta
+- Números/estatísticas destacados (ex: "+10.000 consultas", "99.9% uptime", "LGPD compliant")
+- Layout mais visual com gradientes sutis e bordas arredondadas
+- Animação de entrada com framer-motion
+
+---
+
+### Resumo Técnico
+
+| Tarefa | Arquivos Novos | Arquivos Modificados |
+|--------|---------------|---------------------|
+| Blog | 3 (data, Blog, BlogPost) | 2 (App.tsx, MenuSuperior) |
+| Cards coloridos | 0 | 1 (WhatYouGetSection) |
+| Políticas | 0 | 2 (PrivacyPolicy, CookiePolicy) |
+| Benefícios hero | 0 | 1 (HomeCarouselSection) |
 
