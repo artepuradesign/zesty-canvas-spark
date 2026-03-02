@@ -247,27 +247,55 @@ const HomeCarouselSection: React.FC = () => {
         </Carousel>
       </div>
 
-      {/* Barra de benefícios */}
-      <div className="border-y border-border/60 bg-card/60 backdrop-blur-md">
+      {/* Barra de benefícios — redesign */}
+      <div className="border-y border-border/40 bg-gradient-to-r from-card/80 via-card to-card/80 backdrop-blur-md py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 py-3 sm:py-4">
-            {benefits.map((b, idx) => (
-              <div
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              {
+                icon: <Zap className="h-6 w-6 text-amber-500" aria-hidden="true" />,
+                stat: '< 2s',
+                title: 'Respostas instantâneas',
+                desc: 'Consultas retornam em segundos',
+                gradient: 'from-amber-500/15 to-orange-500/10',
+                border: 'border-amber-500/20',
+              },
+              {
+                icon: <ShieldCheck className="h-6 w-6 text-emerald-500" aria-hidden="true" />,
+                stat: 'LGPD',
+                title: 'Segurança total',
+                desc: 'Criptografia + conformidade',
+                gradient: 'from-emerald-500/15 to-teal-500/10',
+                border: 'border-emerald-500/20',
+              },
+              {
+                icon: <FileSearch className="h-6 w-6 text-violet-500" aria-hidden="true" />,
+                stat: '20+',
+                title: 'Módulos disponíveis',
+                desc: 'Consultas + ferramentas empresariais',
+                gradient: 'from-violet-500/15 to-purple-500/10',
+                border: 'border-violet-500/20',
+              },
+            ].map((item, idx) => (
+              <motion.div
                 key={idx}
-                className="flex items-center justify-start gap-3 rounded-md px-2 sm:px-2"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                className={`flex items-center gap-4 rounded-xl p-4 bg-gradient-to-br ${item.gradient} border ${item.border}`}
               >
-                <div className="h-9 w-9 sm:h-8 sm:w-8 rounded-full bg-primary/10 ring-1 ring-primary/15 flex items-center justify-center flex-shrink-0">
-                  {b.icon}
+                <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-background/80 flex items-center justify-center shadow-sm">
+                  {item.icon}
                 </div>
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-foreground leading-none">
-                    {b.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1 leading-none">
-                    {b.description}
-                  </p>
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-xl font-extrabold text-foreground">{item.stat}</span>
+                    <span className="text-sm font-semibold text-foreground">{item.title}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

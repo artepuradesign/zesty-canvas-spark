@@ -151,7 +151,7 @@ const MenuSuperior = () => {
               <Link to="/dashboard/suporte">
                 <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">Suporte</Button>
               </Link>
-              <Link to="/docs">
+              <Link to="/blog">
                 <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">Blog</Button>
               </Link>
             </nav>
